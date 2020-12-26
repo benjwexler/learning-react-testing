@@ -1,0 +1,11 @@
+.row .btn-delete-todo {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.row:hover .btn-delete-todo {
+  visibility: visible;
+  opacity: 1;
+  transition: 500ms opacity;
+
+;}
