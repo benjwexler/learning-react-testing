@@ -15,8 +15,6 @@ const mountAppComponent = () => (
   )
 )
 
-
-
 describe('Test Todo List Functionality', () => {
   let wrapper;
   const container = document.createElement('div');
@@ -81,7 +79,6 @@ describe('Test Todo List Functionality', () => {
   })
 
   it('Add todo and toggle strike through of text', () => {
-    
     const todoInput = wrapper.find('#todo-input')
     const todoForm = wrapper.find('#todo-form')
     todoInput.simulate('change', { target: { value: 'Can toggle this' } });
@@ -91,15 +88,13 @@ describe('Test Todo List Functionality', () => {
       return wrapper.find('.todo-item').at(0)
     }
     getTodoItem().simulate('click')
-
     expect(getTodoItem().getDOMNode().style.textDecoration).toBe('line-through')
     getTodoItem().simulate('click')
     expect(getTodoItem().getDOMNode().style.textDecoration).not.toBe('line-through')
-    
   })
 
   it('list size is reduced by one when item is deleted', () => {
-    
+
   })
 
 });
