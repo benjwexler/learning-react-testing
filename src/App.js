@@ -2,6 +2,7 @@
 import './App.css';
 import { useState, useRef, useEffect } from 'react';
 import TodoList from './TodoList';
+import cloneDeep from 'lodash.clonedeep';
 
 function App() {
   const [inputVal, setInputVal] = useState('')
@@ -18,16 +19,20 @@ function App() {
   }, [])
 
   const onClickToggleCompleted = (i) => () => {
-    const newTodos = [...todos]
-    newTodos[i].isCompleted = !newTodos[i].isCompleted
-    setTodos(newTodos)
+    setTodos((prevTodos) => {
+      const newTodos = cloneDeep(prevTodos)
+      newTodos[i].isCompleted = !newTodos[i].isCompleted
+      return newTodos
+    })
   }
 
   const onClickDeleteTodo = (i) => (ev) => {
     ev.stopPropagation()
-    const newTodos = [...todos]
-    newTodos.splice(i, 1)
-    setTodos(newTodos)
+    setTodos((prevTodos) => {
+      const newTodos = [...prevTodos]
+      newTodos.splice(i, 1)
+      return newTodos
+    })
   }
 
   return (
@@ -36,8 +41,7 @@ function App() {
         id="todo-form"
         onSubmit={(ev) => {
           ev.preventDefault()
-          const updatedTodos = [...todos, { name: inputVal }]
-          setTodos(updatedTodos)
+          setTodos((prevTodos) => [...prevTodos, { name: inputVal }])
           setInputVal('')
           todoInputRef.current.focus()
         }}
